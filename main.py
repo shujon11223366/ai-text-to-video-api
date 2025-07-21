@@ -47,9 +47,10 @@ def generate():
     print("✅ Script generated successfully")
     return jsonify({"script": script})
 
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=10000)
-    @app.route("/test")
+# Correct placement of the test route (at module level, not inside if __name__ block)
+@app.route("/test")
 def test():
     return {"message": "API is working"}
 
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=10000)
