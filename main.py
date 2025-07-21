@@ -6,7 +6,6 @@ import os
 app = Flask(__name__)
 CORS(app)
 
-# Make sure you set your OpenRouter API key in environment variables on Render.com or locally
 OPENROUTER_API_KEY = os.getenv("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")
 
 @app.route("/")
@@ -45,12 +44,8 @@ def generate():
         print("❌ ERROR calling OpenRouter:", str(e))
         return jsonify({"error": f"Script generation failed: {str(e)}"}), 500
 
-    # Here add your TTS, subtitle, and video generation code with debugging prints too.
-    # For now, just return the script text for testing:
-
     print("✅ Script generated successfully")
     return jsonify({"script": script})
 
 if __name__ == "__main__":
-    # Use port 10000 as Render recommends, bind to all interfaces
     app.run(host="0.0.0.0", port=10000)
