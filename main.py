@@ -1,3 +1,11 @@
+print("🛠️ /generate route called")
+prompt = request.json.get("prompt", None)
+print("📩 Received prompt:", prompt)
+
+if not prompt:
+    print("❌ No prompt received!")
+    return {"error": "No prompt provided"}, 400
+
 from flask import Flask, request, send_file
 from flask_cors import CORS
 from gtts import gTTS
