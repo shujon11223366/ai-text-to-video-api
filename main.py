@@ -6,8 +6,7 @@ import traceback
 app = Flask(__name__)
 CORS(app)
 
-# WARNING: Hardcoding API keys is insecure! Use env vars in production.
-OPENROUTER_API_KEY = "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"
+OPENAI_API_KEY = "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"
 
 @app.route("/")
 def home():
@@ -26,23 +25,23 @@ def generate():
         return jsonify({"error": "No prompt provided"}), 400
 
     headers = {
-        "Authorization": f"Bearer {OPENROUTER_API_KEY}",
+        "Authorization": f"Bearer {OPENAI_API_KEY}",
         "Content-Type": "application/json",
     }
 
     body = {
-        "model": "gpt-4o-mini",
+        "model": "gpt-3.5-turbo",
         "messages": [{"role": "user", "content": prompt}]
     }
 
     try:
-        resp = requests.post("https://openrouter.ai/api/v1/chat/completions", headers=headers, json=body)
-        print("🔍 OpenRouter Response Code:", resp.status_code)
-        print("🔍 OpenRouter Response Body:", resp.text)
+        resp = requests.post("https://api.openai.com/v1/chat/completions", headers=headers, json=body)
+        print("🔍 OpenAI Response Code:", resp.status_code)
+        print("🔍 OpenAI Response Body:", resp.text)
         resp.raise_for_status()
         script = resp.json()["choices"][0]["message"]["content"]
     except Exception as e:
-        print("❌ ERROR calling OpenRouter:", str(e))
+        print("❌ ERROR calling OpenAI:", str(e))
         traceback.print_exc()
         return jsonify({"error": f"Script generation failed: {str(e)}"}), 500
 
