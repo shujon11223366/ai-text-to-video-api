@@ -1,11 +1,13 @@
-from flask_cors import CORS
-import os
-import uuid
-import requests
 from flask import Flask, request, send_file
+from flask_cors import CORS
 from gtts import gTTS
+import uuid
+import os
+import requests
 
 app = Flask(__name__)
+CORS(app)  # ✅ This line allows Blogger to access your API
+
 OPENROUTER_API_KEY = os.environ.get("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")
 
 # Google Drive direct download link for your background video
