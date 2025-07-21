@@ -5,7 +5,7 @@ from flask import Flask, request, send_file
 from gtts import gTTS
 
 app = Flask(__name__)
-OPENROUTER_API_KEY = os.environ.get("OPENROUTER_API_KEY")
+OPENROUTER_API_KEY = os.environ.get("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")
 
 # Google Drive direct download link for your background video
 BACKGROUND_VIDEO_URL = "https://drive.google.com/uc?id=1THOvJdc0rnL56mxeKCCVq5lIl6Nrun6K"
