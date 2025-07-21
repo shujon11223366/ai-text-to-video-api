@@ -35,15 +35,17 @@ def generate():
         return {"error": "Prompt is required"}, 400
 
     # 1. Generate script using OpenRouter
-    headers = {
+        headers = {
         "Authorization": f"Bearer {OPENROUTER_API_KEY}",
         "Content-Type": "application/json",
     }
+
     body = {
         "model": "gpt-4o-mini",
         "messages": [{"role": "user", "content": prompt}]
     }
-           try:
+
+    try:
         resp = requests.post("https://openrouter.ai/api/v1/chat/completions", headers=headers, json=body)
         print("🔍 OpenRouter Response Code:", resp.status_code)
         print("🔍 OpenRouter Response Body:", resp.text)
