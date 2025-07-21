@@ -43,7 +43,7 @@ def generate():
         "model": "gpt-4o-mini",
         "messages": [{"role": "user", "content": prompt}]
     }
-       try:
+           try:
         resp = requests.post("https://openrouter.ai/api/v1/chat/completions", headers=headers, json=body)
         print("🔍 OpenRouter Response Code:", resp.status_code)
         print("🔍 OpenRouter Response Body:", resp.text)
@@ -52,6 +52,7 @@ def generate():
     except Exception as e:
         print("❌ ERROR calling OpenRouter:", str(e))
         return {"error": f"Script generation failed: {str(e)}"}, 500
+
 
     # 2. Text to speech (gTTS)
     audio_filename = f"{uuid.uuid4().hex}.mp3"
