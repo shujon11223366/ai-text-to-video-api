@@ -1,12 +1,13 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import requests
-import os
+import traceback
 
 app = Flask(__name__)
 CORS(app)
 
-OPENROUTER_API_KEY = os.getenv("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")
+# WARNING: Hardcoding API keys is insecure! Use env vars in production.
+OPENROUTER_API_KEY = "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"
 
 @app.route("/")
 def home():
@@ -42,6 +43,7 @@ def generate():
         script = resp.json()["choices"][0]["message"]["content"]
     except Exception as e:
         print("❌ ERROR calling OpenRouter:", str(e))
+        traceback.print_exc()
         return jsonify({"error": f"Script generation failed: {str(e)}"}), 500
 
     print("✅ Script generated successfully")
@@ -52,4 +54,4 @@ def test():
     return jsonify({"message": "API is working"})
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=10000)
+    app.run(host="0.0.0.0", port=10000, debug=True)
